@@ -30,7 +30,7 @@ public class SortingAlgorithms
      */
     public static void selectionSort(int[] array)
     {
-        int oldFrontHolder = -1;
+        int oldFrontHolder;
         for (int i = 0; i < array.length; i++)
         {
             int minValue = array[i];
@@ -149,9 +149,65 @@ public class SortingAlgorithms
 
     }
 
+    /**
+     * Public method for quickSort
+     * @param array the array to sort
+     */
     public static void quickSort(int[] array)
     {
+        privateQuickSort(array, 0, array.length - 1);
+    }
 
+    /**
+     * Sorts an array using the quick sort algorithm
+     * reference: youtu.be/Vtckgz38QHs
+     * @param array the array to sort
+     * @param low the first index
+     * @param high the last index
+     */
+    private static void privateQuickSort(int[] array, int low, int high)
+    {
+        // base case
+        if (low >= high)
+            return;
+
+        // partitions the array and recursively calls quickSort on each half
+        int pivot = partition(array, low, high);
+        privateQuickSort(array, low, pivot - 1);
+        privateQuickSort(array, pivot + 1, high);
+    }
+
+    /**
+     * Helper method for quickSort, partitions an array
+     * @param array the array to partition
+     * @param low the first index
+     * @param high the last index
+     * @return the pivot index
+     */
+    private static int partition(int[] array, int low, int high)
+    {
+        // sets the pivot to the last element in the array and sets i to one less than the first index
+        int pivot = array[high];
+        int i = low - 1;
+
+        // loops through the array, swapping elements if they are less than the pivot
+        for (int j = low; j < high; j++)
+        {
+            if (array[j] < pivot)
+            {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        // swaps the pivot with the element at i + 1
+        i++;
+        int temp = array[i];
+        array[i] = array[high];
+        array[high] = temp;
+
+        return i;
     }
 
     public static void heapSort(int[] array)
