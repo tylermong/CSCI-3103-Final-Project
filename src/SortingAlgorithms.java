@@ -144,9 +144,26 @@ public class SortingAlgorithms
         }
     }
 
+    /**
+     * Sorts an array using the shell sort algorithm
+     * reference: blackboard source & youtu.be/SHcPqUe2GZM
+     * @param array the array to sort
+     */
     public static void shellSort(int[] array)
     {
+        for (int gap = array.length / 2; gap > 0; gap /= 2)
+        {
+            for (int i = gap; i < array.length; i++)
+            {
+                int temp = array[i];
+                int j;
 
+                for (j = i; j >= gap && array[j - gap] > temp; j -= gap)
+                    array[j] = array[j - gap];
+
+                array[j] = temp;
+            }
+        }
     }
 
     /**
@@ -176,7 +193,7 @@ public class SortingAlgorithms
         privateQuickSort(array, low, pivot - 1);
         privateQuickSort(array, pivot + 1, high);
     }
-
+    
     /**
      * Helper method for quickSort, partitions an array
      * @param array the array to partition
@@ -201,7 +218,7 @@ public class SortingAlgorithms
                 array[j] = temp;
             }
         }
-        // swaps the pivot with the element at i + 1
+        // iterates i and swaps the pivot with the element at i, then returns i
         i++;
         int temp = array[i];
         array[i] = array[high];
